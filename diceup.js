@@ -129,6 +129,7 @@ function createResult(lrData, min_val, max_val){
 	approximation.hidden = '';
 
 	loading_gif.hidden = 'true';
+	console.log(result_canvas.toDataURL());
 }
 
 function getDiceSize(dimension1, dimension2){
@@ -150,6 +151,7 @@ function swapToFile(){
 	url_form.hidden = 'true';
 	file_form.hidden = '';
 	file_label.hidden = '';
+	start_button.disabled = 'true';
 }
 
 function swapToURL(){
@@ -159,6 +161,7 @@ function swapToURL(){
 	url_form.hidden = '';
 	file_form.hidden = 'true';
 	file_label.hidden = 'true';
+	start_button.disabled = '';
 }
 
 //adds event listeners to swap links
@@ -198,6 +201,13 @@ var start_button = document.getElementById('start_button');
 var url_form = document.getElementById('url_form');
 var url_link = '';
 var loading_gif = document.getElementById('loading_gif');
+var size_switch = document.getElementById('size_switch');
+
+size_switch.addEventListener("change", function(){
+	let result_container = document.getElementById('result_container');
+	if (size_switch.checked) result_container.className = '';
+	else result_container.className = 'container';
+})
 
 // submit url with enter key
 url_form.addEventListener("keyup", function(event){

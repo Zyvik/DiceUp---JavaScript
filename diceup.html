@@ -84,7 +84,11 @@
 					 </div>
 			    </p>
 			    <!-- setup button -->
-			    <a href="#" id='start_button' class="btn btn-dark btn-lg" style="font-size: x-large;">DiceUp</a>
+			    <button type="button" id='start_button' class="btn btn-dark btn-lg" style="font-size: x-large;">Load Image</button>
+			    <div class="custom-control custom-switch" style="margin-top: 10px;">
+				  <input type="checkbox" class="custom-control-input" id="size_switch">
+				  <label class="custom-control-label" for="size_switch">Full width result</label>
+				</div>
 			  </div>
 			</div>
 			<!-- orginal canvas - should be hidden all the time -->
@@ -95,12 +99,15 @@
 		  		<span class="sr-only">Loading...</span>
 			</div>
 		</div>
-
-		<!-- result canvas -->
+</div>
+<div class="container" id='result_container'>
+	<!-- result canvas -->
 		<canvas id="result" style="width: 100%; height: auto;"></canvas>
 		<!-- approximation alert -->
 		<div class="alert alert-dark text-center" id ='approximation' hidden="true">:)</span>
-	</div>
+</div>
+		
+	
 </body>
 
 
