@@ -1,14 +1,16 @@
 <head>
+	{% load staticfiles %}
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'diceupjs/style.css' %}">
 </head>
 
 <!-- navbar -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
             <!-- Brand -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'diceupjs:home' %}">
+				<img width="30" height="30" src="{% static 'diceupjs/icon.png' %}">
                 DiceUp
             </a>
                             <!-- Collapse button -->
@@ -20,12 +22,8 @@
             <div class="collapse navbar-collapse" id="TopNavbar">
                 <ul class="nav navbar-nav">
                     <li class="navbar-item">
-                        <a class="nav-link py-0" href="#">
-                            About
-                        </a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link py-0" href="#">
+                        <a class="nav-link py-0" href="https://github.com/Zyvik/DiceUp---JavaScript" target="_blank">
+							<img src="{% static 'diceupjs/git-icon.png' %}" height="30" width="30">
                             GitHub
                         </a>
                     </li>
@@ -38,18 +36,18 @@
 
 <body style = "background: linear-gradient(to right, #757f9a, #d7dde8);">
 	<!-- dice images -->
-	<img src="1.png" id='1' hidden="true">
-	<img src="2.png" id='2' hidden="true">
-	<img src="3.png" id='3' hidden="true">
-	<img src="4.png" id='4' hidden='true'>
-	<img src="5.png" id='5' hidden='true'>
-	<img src="6.png" id='6' hidden='true'>
+	<img src="{% static 'diceupjs/1.png' %}" id='1' hidden="true">
+	<img src="{% static 'diceupjs/2.png' %}" id='2' hidden="true">
+	<img src="{% static 'diceupjs/3.png' %}" id='3' hidden="true">
+	<img src="{% static 'diceupjs/4.png' %}" id='4' hidden='true'>
+	<img src="{% static 'diceupjs/5.png' %}" id='5' hidden='true'>
+	<img src="{% static 'diceupjs/6.png' %}" id='6' hidden='true'>
 	<div class="container" style="margin-top: 25px;">
 		<!-- welcome alert -->
 		<div class="alert alert-light text-center" style="border-width: 1px; border-style: solid; border-color: black;">
 			<h3>Welcome to DiceUp!</h3><br>
 			<p>This site will recreate your picture using 6 sided dice. Just paste an URL or select image from your device. <br> (Don't worry - everything happens in your browser and nothing gets uploaded).</p>
-			<p>Website inspired by <a href="https://i.imgur.com/97tUjqz.mp4">this video</a></p>
+			<p>Website inspired by <a href="https://i.imgur.com/97tUjqz.mp4" target="_blank"> this video</a></p>
 		</div>
 		<!-- error alert-->
 		<div class="alert alert-danger text-center" role="alert" id="error_alert" hidden="true">
@@ -71,24 +69,27 @@
 			  <div class="card-body">
 			  	<!-- slider -->
 			    <h5 class="card-title">Quality:</h5>
-			    <input type="range" min="-11" max="-1" value="-6" class="slider" id="slider">
+				  <img src="{% static 'diceupjs/game.png' %}" width="60" height="60">
+				  <input type="range" min="-11" max="-1" value="-6" class="slider" id="slider">
+				  <img src="{% static 'diceupjs/dice.png' %}" width="60" height="60">
 			    <p class="card-text">
 			    	<!-- text input -->
 			    	<div class="custom-input">
-			    		<input type="text" class="form-control" name="" id='url_form' placeholder="Image URL">
+			    		<input type="text" class="form-control" name="" id='url_form' placeholder="Image URL" value="https://i.imgur.com/pchU1De.jpg">
 			    	</div>
 			    	<!--file input -->
 			    	 <div class="custom-file" id= 'file_label' hidden="true">
 					    <input type="file" class="custom-file-input" id="file" accept="image/*" hidden="true">
 					    <label class="custom-file-label" for="customFile" id='file_name'>Choose file</label>
 					 </div>
-			    </p>
+			     </p>
 			    <!-- setup button -->
-			    <button type="button" id='start_button' class="btn btn-dark btn-lg" style="font-size: x-large;">Load Image</button>
-			    <div class="custom-control custom-switch" style="margin-top: 10px;">
-				  <input type="checkbox" class="custom-control-input" id="size_switch">
-				  <label class="custom-control-label" for="size_switch">Full width result</label>
-				</div>
+			    <button type="button" id='start_button' class="btn btn-dark btn-lg" style="font-size: x-large;" >Load Image</button>
+				  <!-- switch -->
+				  <div class="custom-control custom-switch" style="margin-top: 10px;">
+					  <input type="checkbox" class="custom-control-input" id="size_switch">
+					  <label class="custom-control-label" for="size_switch">Full width result</label>
+				  </div>
 			  </div>
 			</div>
 			<!-- orginal canvas - should be hidden all the time -->
@@ -99,16 +100,13 @@
 		  		<span class="sr-only">Loading...</span>
 			</div>
 		</div>
-</div>
-<div class="container" id='result_container'>
-	<!-- result canvas -->
-		<canvas id="result" style="width: 100%; height: auto;"></canvas>
-		<!-- approximation alert -->
-		<div class="alert alert-dark text-center" id ='approximation' hidden="true">:)</span>
-</div>
-		
-	
+	</div>
+	<div class="container" id="result_container">
+		<!-- result canvas -->
+			<canvas id="result" style="width: 100%; height: auto;"></canvas>
+			<!-- approximation alert -->
+			<div class="alert alert-dark text-center" id ='approximation' hidden="true">:)</div>
+	</div>
 </body>
 
-
-<script type="text/javascript" src="diceup.js"></script>
+<script type="text/javascript" src="{% static 'diceupjs/diceup.js' %}"></script>
