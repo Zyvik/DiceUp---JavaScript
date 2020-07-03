@@ -1,4 +1,5 @@
 function setup(url){
+	start_button.disabled = true;
 	//shows loading gif
 	loading_gif.hidden = '';
 	//hides error
@@ -20,6 +21,7 @@ function setup(url){
 	org_im.onerror = function(){
 		error.hidden = '';
 		loading_gif.hidden = 'true';
+		if (is_URL) start_button.disabled = false;
 	}
 }
 
@@ -129,7 +131,7 @@ function createResult(lrData, min_val, max_val){
 	approximation.hidden = '';
 
 	loading_gif.hidden = 'true';
-	console.log(result_canvas.toDataURL());
+	if (is_URL) start_button.disabled = false;
 }
 
 function getDiceSize(dimension1, dimension2){
@@ -152,6 +154,7 @@ function swapToFile(){
 	file_form.hidden = '';
 	file_label.hidden = '';
 	start_button.disabled = 'true';
+	is_URL = false;
 }
 
 function swapToURL(){
@@ -162,6 +165,7 @@ function swapToURL(){
 	file_form.hidden = 'true';
 	file_label.hidden = 'true';
 	start_button.disabled = '';
+	is_URL = true;
 }
 
 //adds event listeners to swap links
@@ -202,6 +206,7 @@ var url_form = document.getElementById('url_form');
 var url_link = '';
 var loading_gif = document.getElementById('loading_gif');
 var size_switch = document.getElementById('size_switch');
+var is_URL = true;
 
 size_switch.addEventListener("change", function(){
 	let result_container = document.getElementById('result_container');
