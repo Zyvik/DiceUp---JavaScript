@@ -20,7 +20,7 @@ function setup(url){
 	org_im.onerror = function(){
 		error.hidden = '';
 		loading_gif.hidden = 'true';
-	} 	
+	}
 }
 
 function getGreyscale (image, n){
